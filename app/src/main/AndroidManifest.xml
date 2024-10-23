@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_logo_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MiSede">
+        <activity
+            android:name=".Recorrer"
+            android:exported="false" />
+        <activity
+            android:name=".VerDocumentos"
+            android:exported="false" />
+        <activity
+            android:name=".ListadoDocumentos"
+            android:exported="false" />
+        <activity
+            android:name=".MostrarAvisos"
+            android:exported="false" />
+        <activity
+            android:name=".VerDatosUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".ActivarUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".AvisoRemovido"
+            android:exported="false" />
+        <activity
+            android:name=".RemoverAviso"
+            android:exported="false" />
+        <activity
+            android:name=".AvisoActualizado"
+            android:exported="false" />
+        <activity
+            android:name=".EditarAviso"
+            android:exported="false" />
+        <activity
+            android:name=".AvisoAgregado"
+            android:exported="false" />
+        <activity
+            android:name=".AgregarAviso"
+            android:exported="false" />
+        <activity
+            android:name=".PanelAvisos"
+            android:exported="false" />
+        <activity
+            android:name=".UsuarioActualizado"
+            android:exported="false" />
+        <activity
+            android:name=".RemoverUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".PermisosUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".UsuarioAgregado"
+            android:exported="false" />
+        <activity
+            android:name=".AgregarUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".PanelUsuarios"
+            android:exported="false" />
+        <activity
+            android:name=".DocumentoRemovido"
+            android:exported="false" />
+        <activity
+            android:name=".RemoverDocumento"
+            android:exported="false" />
+        <activity
+            android:name=".DocumentoActualizado"
+            android:exported="false" />
+        <activity
+            android:name=".EditarDocumento"
+            android:exported="false" />
+        <activity
+            android:name=".DocumentoAgregado"
+            android:exported="false" />
+        <activity
+            android:name=".AgregarDocumento"
+            android:exported="false" />
+        <activity
+            android:name=".PanelDocumentos"
+            android:exported="false" />
+        <activity
+            android:name=".PanelAdministrador"
+            android:exported="false" />
+        <activity
+            android:name=".RecuperarCuenta"
+            android:exported="false" />
+        <activity
+            android:name=".RegistraUsuario"
+            android:exported="false" /> <!-- Actividad de inicio -->
+        <activity
+            android:name=".Intro"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MiSede">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- Configuración de la clave de API de Google Maps -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" /> <!-- Otras actividades -->
+        <activity
+            android:name=".Login"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MiSede" />
+        <activity
+            android:name=".Home"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MiSede" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MiSede" />
+        <activity
+            android:name=".Destino"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MiSede" />
+        <activity
+            android:name=".ListadoAvisosGenerales"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MiSede" />
+        <activity
+            android:name=".DetalleListadoGeneral"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MiSede" />
+        <activity
+            android:name=".Llegada"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MiSede" />
+    </application>
+
+</manifest>

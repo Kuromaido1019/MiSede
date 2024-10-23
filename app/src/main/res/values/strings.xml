@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Gestion Mi Sede</string>
+    <string name="cover">Cover</string>
+    <string name="title_place_holder">Title Place Holder</string>
+    <string name="author_placeholder">Author PlaceHolder</string>
+    <string name="description_placeholder">Description PlaceHolder</string>
+    <string name="default_web_client_id">606286065390-76pro95t9fk8b2n483vl8ch27ce1b9ij.apps.googleusercontent.com</string>
+    <string name="title">Demo</string>"
+    <string name="demo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

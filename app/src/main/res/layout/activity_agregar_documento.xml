@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AgregarDocumento">
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/st_logo" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="272dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="27dp"
+        android:text="Agregar Documento"
+        android:textAlignment="center"
+        android:textColor="@color/STomas"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView13"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="284dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="64dp"
+        android:text="Ingrese los datos del documento"
+        android:textAlignment="center"
+        android:textColor="@color/STomas"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+
+    <EditText
+        android:id="@+id/txtTituloDocumento"
+        android:layout_width="327dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="42dp"
+        android:background="@drawable/edit_text_background"
+        android:ems="10"
+        android:hint="Titulo documento"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="@color/STomas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <EditText
+        android:id="@+id/txtEnlaceDocumento"
+        android:layout_width="328dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="41dp"
+        android:background="@drawable/edit_text_background"
+        android:ems="10"
+        android:hint="Enlace del documento"
+        android:inputType="text"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTituloDocumento" />
+
+    <Button
+        android:id="@+id/btnImagenDocumento"
+        android:layout_width="117dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="147dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="147dp"
+        android:background="@drawable/button_background"
+        android:text="Imagen"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnTipoDocAdd" />
+
+    <Button
+        android:id="@+id/btnAgregarDoc"
+        android:layout_width="253dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="38dp"
+        android:background="@drawable/button_background"
+        android:text="Agregar documento"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnImagenDocumento" />
+
+    <Spinner
+        android:id="@+id/spnTipoDocAdd"
+        android:layout_width="324dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="45dp"
+        android:background="@drawable/edit_text_background"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEnlaceDocumento" />
+</androidx.constraintlayout.widget.ConstraintLayout>

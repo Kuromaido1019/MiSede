@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DocumentoRemovido">
+
+    <ImageView
+        android:id="@+id/imageView21"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="299dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/st_logo" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="285dp"
+        android:layout_height="86dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="63dp"
+        android:text="Documento Removido"
+        android:textAlignment="center"
+        android:textColor="@color/STomas"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView21" />
+
+    <ImageView
+        android:id="@+id/imageView22"
+        android:layout_width="239dp"
+        android:layout_height="231dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="86dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView29"
+        app:srcCompat="@drawable/check" />
+
+    <Button
+        android:id="@+id/btnVolverGestionD3"
+        android:layout_width="329dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="124dp"
+        android:background="@drawable/button_background"
+        android:text="Volver a gestion"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView22" />
+</androidx.constraintlayout.widget.ConstraintLayout>

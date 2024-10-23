@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "371047508501",
+    "project_id": "appmisede",
+    "storage_bucket": "appmisede.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371047508501:android:ad3184a28d64e7f051fc1c",
+        "android_client_info": {
+          "package_name": "com.misedegestion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371047508501-cgjj5fc4siksra9j0hifgug9rmg4olgl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.misedegestion",
+            "certificate_hash": "003aedff9cd980563dc41d42f0cb45c7810a810a"
+          }
+        },
+        {
+          "client_id": "371047508501-nhrv8cjjdd17epcqhkcq0tricom4f2jo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASlzVf23T5UrUsAwc2SJuaLi_JIHhNNiI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371047508501-nhrv8cjjdd17epcqhkcq0tricom4f2jo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
