@@ -1,16 +1,17 @@
 package com.misedegestion
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.VideoView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 
@@ -27,11 +28,11 @@ class FifthFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflar el layout del fragment
-        val view = inflater.inflate(R.layout.fragment_first, container, false)
+        val view = inflater.inflate(R.layout.fragment_fifth, container, false)
 
-        val stepTitleTextView: TextView = view.findViewById(R.id.step_title1)
-        val stepDescriptionTextView: TextView = view.findViewById(R.id.description_place1)
-        val videoView: VideoView = view.findViewById(R.id.video_destination)
+        val stepTitleTextView: TextView = view.findViewById(R.id.step_title5)
+        val stepDescriptionTextView: TextView = view.findViewById(R.id.description_place5)
+        val gifImageView: ImageView = view.findViewById(R.id.gif_destination5)
         val destination_name: TextView = view.findViewById(R.id.destination_name)
 
         // Inicializar Firestore y Storage
@@ -41,8 +42,8 @@ class FifthFragment : Fragment() {
         // Obtener el nombre de la ubicación desde los argumentos
         val locationName = arguments?.getString("location_name") ?: ""
         val start_location = arguments?.getString("start_location") ?: ""
-        Log.d("FirstFragment", "Start Location: $start_location")
-        Log.d("FirstFragment", "Location Name: $locationName")
+        Log.d("Fragment", "Start Location: $start_location")
+        Log.d("Fragment", "Location Name: $locationName")
 
         // Consultar la colección 'ubicaciones' en Firestore
         db.collection("ubicaciones")
@@ -52,29 +53,30 @@ class FifthFragment : Fragment() {
                 for (document in documents) {
                     // Cargar los datos del primer paso en los TextViews
                     val name = document.getString("name") ?: ""
-                    val stepTitle = document.getString("step_5_title") ?: ""
-                    val stepDescription = document.getString("step_5_description") ?: ""
+                    val stepTitle = document.getString("step_4_title") ?: ""
+                    val stepDescription = document.getString("step_4_description") ?: ""
                     destination_name.text = name
                     stepTitleTextView.text = stepTitle
                     stepDescriptionTextView.text = stepDescription
 
-                    // Cargar el video desde Firebase Storage
-                    val videoUri = document.getString("video_uri_5") ?: ""
-                    if (videoUri.isNotEmpty()) {
-                        val videoRef = storage.reference.child("videos/$videoUri")
-                        videoRef.downloadUrl.addOnSuccessListener { uri ->
-                            videoView.setVideoURI(uri)
-                            videoView.start()
-                            videoView.setOnPreparedListener { mediaPlayer ->
-                                mediaPlayer.isLooping = true
-                            }
+                    // Cargar el GIF desde Firebase Storage
+                    val gifUri = document.getString("video_uri_4") ?: ""
+                    if (gifUri.isNotEmpty()) {
+                        val gifRef = storage.reference.child("videos/$gifUri")
+                        gifRef.downloadUrl.addOnSuccessListener { uri ->
+                            // Cargar el GIF en el ImageView con Glide
+                            Glide.with(this@FifthFragment)
+                                .asGif()
+                                .load(uri)
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .into(gifImageView)
                         }.addOnFailureListener {
-                            // Mostrar un Toast si no se encuentra el video
-                            Toast.makeText(requireContext(), "No se encontró el video", Toast.LENGTH_SHORT).show()
+                            // Mostrar un Toast si no se encuentra el GIF
+                            Toast.makeText(requireContext(), "No se encontró el GIF", Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        // Mostrar un Toast si el video URI está vacío
-                        Toast.makeText(requireContext(), "No se encontró el video", Toast.LENGTH_SHORT).show()
+                        // Mostrar un Toast si el URI del GIF está vacío
+                        Toast.makeText(requireContext(), "No se encontró el GIF", Toast.LENGTH_SHORT).show()
                     }
                 }
             }.addOnFailureListener {

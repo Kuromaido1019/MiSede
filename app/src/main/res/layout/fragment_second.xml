@@ -38,13 +38,14 @@
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <VideoView
-        android:id="@+id/video_destination2"
+    <ImageView
+        android:id="@+id/gif_destination2"
         android:layout_width="350dp"
         android:layout_height="180dp"
         android:layout_marginStart="17dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="23dp"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/step_title2" />
@@ -89,6 +90,6 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_destination2" />
+        app:layout_constraintTop_toBottomOf="@+id/gif_destination2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

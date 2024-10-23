@@ -38,16 +38,17 @@
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <VideoView
-        android:id="@+id/video_destination5"
+    <ImageView
+        android:id="@+id/gif_destination5"
         android:layout_width="350dp"
         android:layout_height="180dp"
         android:layout_marginStart="17dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="23dp"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/step_title2" />
+        app:layout_constraintTop_toBottomOf="@+id/step_title5" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -60,7 +61,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/step_title2"
+        android:id="@+id/step_title5"
         android:layout_width="350dp"
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
@@ -77,7 +78,7 @@
         app:layout_constraintTop_toBottomOf="@+id/destination_name" />
 
     <TextView
-        android:id="@+id/description_place2"
+        android:id="@+id/description_place5"
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_marginStart="16dp"
@@ -89,6 +90,6 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_destination5" />
+        app:layout_constraintTop_toBottomOf="@+id/gif_destination5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
