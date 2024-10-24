@@ -3,17 +3,17 @@ package com.misedeg
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
+import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 
 class Intro : AppCompatActivity() {
 
-    private lateinit var imageViewGif: ImageView
+    private lateinit var videoView: VideoView
     private lateinit var btnIniciarApp: Button
     private val storage = FirebaseStorage.getInstance()
 
@@ -21,13 +21,13 @@ class Intro : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
 
-        imageViewGif = findViewById(R.id.videoView)
+        videoView = findViewById(R.id.videoView)
         btnIniciarApp = findViewById(R.id.btnIniciarApp)
 
         if (isNetworkAvailable()) {
-            loadGifFromFirebase()
+            loadVideoFromFirebase()
         } else {
-            loadGifFromDrawable()
+            loadVideoFromRaw()
         }
 
         btnIniciarApp.setOnClickListener {
@@ -43,25 +43,29 @@ class Intro : AppCompatActivity() {
         return networkInfo != null && networkInfo.isConnected
     }
 
-    private fun loadGifFromFirebase() {
-        val gifRef = storage.reference.child("videos/intro.gif")
+    // Cargar video desde Firebase Storage
+    private fun loadVideoFromFirebase() {
+        val videoRef = storage.reference.child("videos/intro.mp4")
 
-        gifRef.downloadUrl.addOnSuccessListener { uri ->
-            Glide.with(this)
-                .asGif()
-                .load(uri)
-                .into(imageViewGif)
+        videoRef.downloadUrl.addOnSuccessListener { uri ->
+            videoView.setVideoURI(uri)
+            videoView.setOnPreparedListener { mediaPlayer ->
+                mediaPlayer.isLooping = true
+            }
+            videoView.start()
         }.addOnFailureListener { exception ->
-
-            Toast.makeText(this, "Error al cargar GIF desde Firebase: ${exception.message}, cargando GIF local.", Toast.LENGTH_SHORT).show()
-            loadGifFromDrawable()
+            Toast.makeText(this, "Error al cargar video desde Firebase: ${exception.message}, cargando video local.", Toast.LENGTH_SHORT).show()
+            loadVideoFromRaw()
         }
     }
 
-    private fun loadGifFromDrawable() {
-        Glide.with(this)
-            .asGif()
-            .load(R.drawable.intro)
-            .into(imageViewGif)
+    // Cargar video desde la carpeta raw
+    private fun loadVideoFromRaw() {
+        val videoUri = Uri.parse("android.resource://${packageName}/${R.raw.intro}") // Asegúrate de que el video esté en la carpeta raw
+        videoView.setVideoURI(videoUri)
+        videoView.setOnPreparedListener { mediaPlayer ->
+            mediaPlayer.isLooping = true // El video se reproducirá en bucle
+        }
+        videoView.start()
     }
 }
