@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    namespace = "com.misedegestion"
+    namespace = "com.misedeg"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.misedegestion"
+        applicationId = "com.misedeg"
         minSdk = 27
         targetSdk = 34
-        versionCode = 3
-        versionName = "3.1"
+        versionCode = 5
+        versionName = "5.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
