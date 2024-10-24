@@ -19,21 +19,18 @@ class PanelAdministrador : AppCompatActivity() {
             insets
         }
 
-        // Boton de Documentos
         val btnPanelDocumentos: Button = findViewById(R.id.btnPanelDocumentos)
         btnPanelDocumentos.setOnClickListener {
             val intent = Intent(this, PanelDocumentos::class.java)
             startActivity(intent)
         }
 
-        // Boton Usuarios
         val btnPanelUsuarios: Button = findViewById(R.id.btnPanelUsuarios)
         btnPanelUsuarios.setOnClickListener {
             val intent = Intent(this, PanelUsuarios::class.java)
             startActivity(intent)
         }
 
-        // Boton Avisos
         val btnPanelAvisos: Button = findViewById(R.id.btnPanelAvisos)
         btnPanelAvisos.setOnClickListener {
             val intent = Intent(this, PanelAvisos::class.java)

@@ -20,7 +20,7 @@ class RemoverAviso : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val storage = FirebaseStorage.getInstance()
     private var listaTitulos = mutableListOf<String>()
-    private var listaIds = mutableListOf<String>()  // Para almacenar los IDs de los documentos
+    private var listaIds = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +43,6 @@ class RemoverAviso : AppCompatActivity() {
         }
     }
 
-    // Método para cargar los avisos en el Spinner
     private fun cargarAvisos() {
         db.collection("noticias").get().addOnSuccessListener { querySnapshot ->
             if (!querySnapshot.isEmpty) {
@@ -60,25 +59,20 @@ class RemoverAviso : AppCompatActivity() {
         }
     }
 
-    // Método para remover el aviso seleccionado
     private fun removerAviso() {
         val posicionSeleccionada = spinnerAvisosRemover.selectedItemPosition
         if (posicionSeleccionada != -1) {
             val avisoId = listaIds[posicionSeleccionada]
 
-            // Eliminar el documento de Firestore
             db.collection("noticias").document(avisoId).get().addOnSuccessListener { documentSnapshot ->
                 val nombreImagen = documentSnapshot.getString("cover") ?: ""
 
-                // Eliminar el aviso de Firestore
                 db.collection("noticias").document(avisoId).delete().addOnSuccessListener {
 
-                    // Eliminar la imagen correspondiente de Firebase Storage
                     val storageRef = storage.reference.child("images/$nombreImagen.png")
                     storageRef.delete().addOnSuccessListener {
                         Toast.makeText(this, "Aviso y imagen eliminados exitosamente.", Toast.LENGTH_LONG).show()
 
-                        // Redirigir a la actividad AvisoRemovido
                         val intent = Intent(this, AvisoRemovido::class.java)
                         startActivity(intent)
                         finish()

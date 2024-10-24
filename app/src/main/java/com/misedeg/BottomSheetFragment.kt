@@ -63,33 +63,26 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
                 if (!documents.isEmpty) {
                     val document = documents.first()
 
-                    // Obtener los campos photo_1, photo_2, photo_3
                     val photo1 = document.getString("photo_1")
                     val photo2 = document.getString("photo_2")
                     val photo3 = document.getString("photo_3")
 
-                    // Lista con los nombres de las imágenes
                     val imageNames = listOf(photo1, photo2, photo3).filterNotNull()
 
-                    // Cargar las imágenes desde Firebase Storage
                     imageNames.forEach { imageName ->
                         val storageRef = storage.reference.child("places/$imageName")
                         storageRef.downloadUrl.addOnSuccessListener { uri ->
-                            // Agregar la imagen a la lista de imágenes
-                            //imageList.add(ImageItem(UUID.randomUUID().toString(), uri.toString(),false,""))
-
-                            // Actualizar el adaptador cuando se carguen las imágenes
                             val imageAdapter = ImageAdapter()
                             imageRV.adapter = imageAdapter
                             imageAdapter.submitList(imageList)
                         }.addOnFailureListener {
-                            // Manejar errores si es necesario
+
                         }
                     }
                 }
             }
             .addOnFailureListener {
-                // Manejar el error al buscar en Firestore
+
             }
     }
 }

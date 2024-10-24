@@ -19,7 +19,6 @@ class DocumentoRemovido : AppCompatActivity() {
             insets
         }
 
-        // Volver al panel documentos
         val btnVolver = findViewById<Button>(R.id.btnVolverGestionD3)
         btnVolver.setOnClickListener {
             val intent = Intent(this, PanelDocumentos::class.java)

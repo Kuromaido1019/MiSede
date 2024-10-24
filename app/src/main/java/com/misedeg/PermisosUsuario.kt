@@ -23,20 +23,16 @@ class PermisosUsuario : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permisos_usuario)
 
-        // Inicializar Firestore
         db = Firebase.firestore
 
-        // Referencias a los elementos del layout
-        spinnerEmailUser = findViewById(R.id.spnPermisoUsuario) // Cambia el ID al del Spinner que usarás
+        spinnerEmailUser = findViewById(R.id.spnPermisoUsuario)
         btnDarPermiso = findViewById(R.id.btnDarPermiso)
         btnQuitarPermiso = findViewById(R.id.btnQuitarPermiso)
 
-        // Cargar correos electrónicos en el Spinner
         cargarEmailsEnSpinner()
 
-        // Evento para otorgar permisos de administrador
         btnDarPermiso.setOnClickListener {
-            val email = spinnerEmailUser.selectedItem.toString() // Obtener el correo seleccionado
+            val email = spinnerEmailUser.selectedItem.toString()
 
             if (email.isNotEmpty()) {
                 actualizarPermisosUsuario(email, "Administrador")
@@ -45,9 +41,8 @@ class PermisosUsuario : AppCompatActivity() {
             }
         }
 
-        // Evento para retirar permisos de administrador
         btnQuitarPermiso.setOnClickListener {
-            val email = spinnerEmailUser.selectedItem.toString() // Obtener el correo seleccionado
+            val email = spinnerEmailUser.selectedItem.toString()
 
             if (email.isNotEmpty()) {
                 actualizarPermisosUsuario(email, "Estudiante")
@@ -57,9 +52,7 @@ class PermisosUsuario : AppCompatActivity() {
         }
     }
 
-    // Función para cargar los correos electrónicos en el Spinner
     private fun cargarEmailsEnSpinner() {
-        // Consultar Firestore para obtener los emails de todos los usuarios
         db.collection("usuarios")
             .get()
             .addOnSuccessListener { documents ->
@@ -67,11 +60,10 @@ class PermisosUsuario : AppCompatActivity() {
                     for (document in documents) {
                         val email = document.getString("email")
                         email?.let {
-                            emailList.add(it) // Añadir cada email a la lista
+                            emailList.add(it)
                         }
                     }
 
-                    // Crear un adaptador para el Spinner
                     val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, emailList)
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinnerEmailUser.adapter = adapter
@@ -84,7 +76,6 @@ class PermisosUsuario : AppCompatActivity() {
             }
     }
 
-    // Función para actualizar el tipo de usuario en la base de datos
     private fun actualizarPermisosUsuario(email: String, nuevoTipoUsuario: String) {
         val userRef = db.collection("usuarios").whereEqualTo("email", email)
 
@@ -94,7 +85,6 @@ class PermisosUsuario : AppCompatActivity() {
                 val updates = hashMapOf<String, Any>(
                     "tipoUsuario" to nuevoTipoUsuario
                 )
-
                 db.collection("usuarios").document(documentId)
                     .update(updates)
                     .addOnSuccessListener {
@@ -105,10 +95,9 @@ class PermisosUsuario : AppCompatActivity() {
                         }
                         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
-                        // Redirigir a UsuarioActualizado
                         val intent = Intent(this, UsuarioActualizado::class.java)
                         startActivity(intent)
-                        finish() // Finalizar la actividad actual si no es necesaria volver atrás
+                        finish()
                     }
                     .addOnFailureListener {
                         Toast.makeText(this, "Error al actualizar los permisos.", Toast.LENGTH_SHORT).show()

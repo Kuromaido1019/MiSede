@@ -37,67 +37,59 @@ class VerDocumentos : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ver_documentos)
 
-        // Inicialización para Institucional
         detailsTextInstitucional = findViewById(R.id.descriptionInstitucional)
         layoutInstitucional = findViewById(R.id.layoutsInstitucional)
         expandInstitucional = findViewById(R.id.cardViewInstitucional)
         documentsRecyclerViewInstitucional = findViewById(R.id.documentsRecyclerViewInstitucional)
 
-        // Inicialización para Estudiantes
         detailsTextEstudiantes = findViewById(R.id.descriptionEstudiantes)
         layoutEstudiantes = findViewById(R.id.layoutsEstudiantes)
         expandEstudiantes = findViewById(R.id.cardViewEstudiantes)
         documentsRecyclerViewEstudiantes = findViewById(R.id.documentsRecyclerViewEstudiantes)
 
-        // Inicialización para Docentes
         detailsTextDocentes = findViewById(R.id.descriptionDocentes)
         layoutDocentes = findViewById(R.id.layoutsDocentes)
         expandDocentes = findViewById(R.id.cardViewDocentes)
         documentsRecyclerViewDocentes = findViewById(R.id.documentsRecyclerViewDocentes)
 
-        // Configuración de transiciones
         layoutInstitucional.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         layoutEstudiantes.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         layoutDocentes.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 
-        // Click para expandir el card de Institucional
         expandInstitucional.setOnClickListener {
             val v = if (detailsTextInstitucional.visibility == View.GONE) View.VISIBLE else View.GONE
             detailsTextInstitucional.visibility = v
             documentsRecyclerViewInstitucional.visibility = if (documentsRecyclerViewInstitucional.visibility == View.GONE) View.VISIBLE else View.GONE
 
             if (documentsRecyclerViewInstitucional.visibility == View.VISIBLE) {
-                cargarDocumentos("Institucional") // Cargar documentos de Institucional
+                cargarDocumentos("Institucional")
             }
         }
 
-        // Click para expandir el card de Estudiantes
         expandEstudiantes.setOnClickListener {
             val v = if (detailsTextEstudiantes.visibility == View.GONE) View.VISIBLE else View.GONE
             detailsTextEstudiantes.visibility = v
             documentsRecyclerViewEstudiantes.visibility = if (documentsRecyclerViewEstudiantes.visibility == View.GONE) View.VISIBLE else View.GONE
 
             if (documentsRecyclerViewEstudiantes.visibility == View.VISIBLE) {
-                cargarDocumentos("Estudiantes") // Cargar documentos de Estudiantes
+                cargarDocumentos("Estudiantes")
             }
         }
 
-        // Click para expandir el card de Docentes
         expandDocentes.setOnClickListener {
             val v = if (detailsTextDocentes.visibility == View.GONE) View.VISIBLE else View.GONE
             detailsTextDocentes.visibility = v
             documentsRecyclerViewDocentes.visibility = if (documentsRecyclerViewDocentes.visibility == View.GONE) View.VISIBLE else View.GONE
 
             if (documentsRecyclerViewDocentes.visibility == View.VISIBLE) {
-                cargarDocumentos("Docentes") // Cargar documentos de Docentes
+                cargarDocumentos("Docentes")
             }
         }
     }
 
-    // Modifica esta función para aceptar un tipo como parámetro
     private fun cargarDocumentos(type: String) {
         db.collection("documentos")
-            .whereEqualTo("type", type) // Filtrar por el tipo especificado
+            .whereEqualTo("type", type)
             .get()
             .addOnSuccessListener { documents ->
                 val documentList = mutableListOf<Pair<String, String>>()
@@ -106,7 +98,7 @@ class VerDocumentos : AppCompatActivity() {
                     val link = document.getString("link") ?: ""
                     documentList.add(Pair(title, link))
                 }
-                mostrarDocumentos(type, documentList) // Llama a la función para mostrar documentos
+                mostrarDocumentos(type, documentList)
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "Error al cargar documentos: ${exception.message}", Toast.LENGTH_SHORT).show()

@@ -23,7 +23,6 @@ class FragmentPageAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        // Crear el fragmento según la posición
         val fragment = when (position) {
             0 -> FirstFragment()
             1 -> SecondFragment()
@@ -33,7 +32,6 @@ class FragmentPageAdapter(
             else -> throw IllegalStateException("Position $position is invalid for this adapter")
         }
 
-        // Pasar el nombre de la ubicación al fragmento mediante argumentos
         fragment.arguments = Bundle().apply {
             putString("location_name", locationName)
             putString("start_location", start_location)

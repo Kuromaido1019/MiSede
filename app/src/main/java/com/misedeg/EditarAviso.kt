@@ -15,7 +15,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
-@Suppress("DEPRECATION")
 class EditarAviso : AppCompatActivity() {
 
     private lateinit var txtTituloAvisoE: EditText
@@ -30,14 +29,13 @@ class EditarAviso : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val storage = FirebaseStorage.getInstance()
 
-    private var avisoId: String? = null // ID del aviso a editar
+    private var avisoId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_editar_aviso)
 
-        // Inicializar vistas
         txtTituloAvisoE = findViewById(R.id.txtTituloAvisoE)
         txtFechaAvisoE = findViewById(R.id.txtFechaAvisoE)
         txtDescrAvisoE = findViewById(R.id.txtDescrAvisoE)
@@ -46,34 +44,28 @@ class EditarAviso : AppCompatActivity() {
         btnEditarAvisoE = findViewById(R.id.btnEditarAvisoE)
         spinnerAvisosE = findViewById(R.id.spinnerAvisosE)
 
-        // Ajustar insets para la UI
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Configurar spinners
         configurarSpinnerCategorias()
         configurarSpinnerAvisos()
 
-        // Mostrar DatePickerDialog al hacer clic en el campo de fecha
         txtFechaAvisoE.setOnClickListener {
             mostrarDatePicker()
         }
 
-        // Seleccionar imagen
         btnImagenAvisosE.setOnClickListener {
             seleccionarImagen()
         }
 
-        // Editar aviso
         btnEditarAvisoE.setOnClickListener {
             editarAviso()
         }
     }
 
-    // Método para configurar el Spinner de categorías
     private fun configurarSpinnerCategorias() {
         val categorias = arrayOf("Avisos Generales", "Avisos DAE", "Centro Aprendizaje")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias)
@@ -81,7 +73,6 @@ class EditarAviso : AppCompatActivity() {
         spinnerCatAvisosE.adapter = adapter
     }
 
-    // Método para configurar el Spinner de avisos
     private fun configurarSpinnerAvisos() {
         db.collection("noticias").get().addOnSuccessListener { querySnapshot ->
             val titulos = querySnapshot.documents.map { it.getString("title") ?: "" }
@@ -94,7 +85,6 @@ class EditarAviso : AppCompatActivity() {
                     val selectedTitle = parent.getItemAtPosition(position) as String
                     cargarAvisoPorTitulo(selectedTitle)
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
         }.addOnFailureListener { e ->
@@ -102,7 +92,6 @@ class EditarAviso : AppCompatActivity() {
         }
     }
 
-    // Método para cargar un aviso por su título
     private fun cargarAvisoPorTitulo(titulo: String) {
         db.collection("noticias").whereEqualTo("title", titulo).get().addOnSuccessListener { querySnapshot ->
             val document = querySnapshot.documents.firstOrNull()
@@ -117,7 +106,6 @@ class EditarAviso : AppCompatActivity() {
                 txtDescrAvisoE.setText(descripcion)
                 spinnerCatAvisosE.setSelection((spinnerCatAvisosE.adapter as ArrayAdapter<String>).getPosition(categoria))
 
-                // Puedes agregar la lógica para cargar la imagen si es necesario
             } else {
                 Toast.makeText(this, "No se encontró el aviso.", Toast.LENGTH_LONG).show()
             }
@@ -126,7 +114,6 @@ class EditarAviso : AppCompatActivity() {
         }
     }
 
-    // Método para mostrar el DatePickerDialog
     private fun mostrarDatePicker() {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
@@ -140,13 +127,11 @@ class EditarAviso : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    // Método para seleccionar una imagen de la galería
     private fun seleccionarImagen() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, 1001)
     }
 
-    // Método para editar el aviso
     private fun editarAviso() {
         val titulo = txtTituloAvisoE.text.toString().trim()
         val fecha = txtFechaAvisoE.text.toString().trim()
@@ -158,14 +143,12 @@ class EditarAviso : AppCompatActivity() {
             return
         }
 
-        // Obtener el aviso actual para saber el nombre de la imagen
         db.collection("noticias").document(avisoId!!).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val datosAviso = document.data ?: return@addOnSuccessListener
                     val nombreImagen = datosAviso["cover"] as? String ?: ""
 
-                    // Actualizar Firestore
                     val aviso = mapOf(
                         "title" to titulo,
                         "date" to fecha,
@@ -175,7 +158,6 @@ class EditarAviso : AppCompatActivity() {
 
                     db.collection("noticias").document(avisoId!!).update(aviso)
                         .addOnSuccessListener {
-                            // Si se ha seleccionado una nueva imagen, subirla
                             if (imagenUri != null) {
                                 val storageRef = storage.reference.child("images/$nombreImagen.png")
                                 storageRef.putFile(imagenUri!!)
@@ -201,15 +183,12 @@ class EditarAviso : AppCompatActivity() {
             }
     }
 
-    // Método para redirigir a AvisosActualizado
     private fun redirigirAvisoActualizado() {
         val intent = Intent(this, AvisoActualizado::class.java)
         startActivity(intent)
-        finish() // Finaliza la actividad actual
+        finish()
     }
 
-
-    // Manejar la imagen seleccionada de la galería
     @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

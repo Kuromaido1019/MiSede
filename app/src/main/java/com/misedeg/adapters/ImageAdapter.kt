@@ -36,16 +36,13 @@ class ImageAdapter : ListAdapter<ImageItem, ImageAdapter.ViewHolder>(DiffCallbac
         private val imageView = itemView.findViewById<ImageView>(R.id.imageView)
 
         fun bindData(item: ImageItem, listener: OnItemClickListener?) {
-            // Cargar el recurso drawable
             imageView.setImageResource(item.resource)
 
-            // Configurar el click listener
             itemView.setOnClickListener {
                 listener?.onItemClick(item.name) // Llama al listener con el nombre de la ubicación
             }
         }
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

@@ -25,19 +25,15 @@ class RemoverDocumento : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_remover_documento)
 
-        // Inicializar vistas
         spinnerDocumentosRemover = findViewById(R.id.spinnerDocumentosRemover)
         btnRemoverDoc = findViewById(R.id.btnRemoverDoc)
 
-        // Cargar los títulos de los documentos en el spinner
         cargarDocumentos()
 
-        // Configurar el botón para eliminar el documento
         btnRemoverDoc.setOnClickListener {
             eliminarDocumento()
         }
 
-        // Ajustar insets para la UI
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -45,7 +41,6 @@ class RemoverDocumento : AppCompatActivity() {
         }
     }
 
-    // Método para cargar los documentos en el spinner
     private fun cargarDocumentos() {
         db.collection("documentos").get().addOnSuccessListener { querySnapshot ->
             val documentos = querySnapshot.documents.map { it.getString("title") ?: "Sin título" }
@@ -55,7 +50,6 @@ class RemoverDocumento : AppCompatActivity() {
         }
     }
 
-    // Método para eliminar el documento seleccionado
     private fun eliminarDocumento() {
         val tituloSeleccionado = spinnerDocumentosRemover.selectedItem.toString()
 
@@ -77,14 +71,11 @@ class RemoverDocumento : AppCompatActivity() {
                 val id = documento.id
                 val nombreImagen = documento.getString("cover") ?: ""
 
-                // Eliminar el documento de Firestore
                 db.collection("documentos").document(id).delete()
                     .addOnSuccessListener {
-                        // Eliminar la imagen asociada de Firebase Storage
                         val storageRef = FirebaseStorage.getInstance().reference.child("images/$nombreImagen.png")
                         storageRef.delete().addOnSuccessListener {
                             Toast.makeText(this, "Documento eliminado exitosamente.", Toast.LENGTH_LONG).show()
-                            // Redirigir a DocumentoRemovido
                             val intent = Intent(this, DocumentoRemovido::class.java)
                             startActivity(intent)
                             finish()

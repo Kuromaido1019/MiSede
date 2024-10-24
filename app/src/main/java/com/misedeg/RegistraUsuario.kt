@@ -3,7 +3,6 @@ package com.misedeg
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -31,14 +30,13 @@ class RegistraUsuario : AppCompatActivity() {
             insets
         }
 
-        // Redirigir a Recuperar cuenta
         binding.btnRecuperarCuenta.setOnClickListener {
             val intent = Intent(this, RecuperarCuenta::class.java)
             startActivity(intent)
         }
 
         auth = FirebaseAuth.getInstance()
-        firestore = FirebaseFirestore.getInstance() // Inicializa Firestore
+        firestore = FirebaseFirestore.getInstance()
 
         binding.btnRegistrarUsuario.setOnClickListener {
             val email = binding.txtEmailRegistro.text.toString().trim()
@@ -79,14 +77,11 @@ class RegistraUsuario : AppCompatActivity() {
                     val user = auth.currentUser
                     if (userId != null && user != null) {
                         saveUserToFirestore(userId, email, password, "Estudiante")
-                        // Enviar correo de verificación
                         sendVerificationEmail(user)
                     } else {
-                        Log.e("RegistraUsuario", "UID es nulo después de la creación del usuario.")
                     }
                 } else {
                     Toast.makeText(this, "Error en el registro: ${task.exception?.message}", Toast.LENGTH_LONG).show()
-                    Log.e("RegistraUsuario", "Error al crear el usuario: ${task.exception?.message}")
                 }
             }
     }
@@ -94,27 +89,24 @@ class RegistraUsuario : AppCompatActivity() {
     private fun saveUserToFirestore(userId: String, email: String, password: String, userType: String) {
         val user = hashMapOf(
             "email" to email,
-            "password" to password, // No recomendado por razones de seguridad
+            "password" to password,
             "tipoUsuario" to userType,
-            "UID" to userId, // Agrega el UID al mapa de datos
-            "estado" to "Activo" // Añadir el estado "Activo"
+            "UID" to userId,
+            "estado" to "Activo"
         )
 
         firestore.collection("usuarios")
-            .document(userId) // Usa el UID como el ID del documento
+            .document(userId)
             .set(user)
             .addOnSuccessListener {
                 Toast.makeText(this, "Usuario guardado en Firestore", Toast.LENGTH_SHORT).show()
-                Log.d("RegistraUsuario", "Usuario guardado en Firestore con ID: $userId")
 
-                // Redirigir al login
                 val intent = Intent(this, Login::class.java)
                 startActivity(intent)
-                finish() // Cierra la actividad actual
+                finish()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error al guardar usuario: ${e.message}", Toast.LENGTH_LONG).show()
-                Log.e("RegistraUsuario", "Error al guardar usuario en Firestore: ${e.message}")
             }
     }
 
@@ -125,7 +117,6 @@ class RegistraUsuario : AppCompatActivity() {
                     Toast.makeText(this, "Correo de verificación enviado", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "Error al enviar correo de verificación", Toast.LENGTH_SHORT).show()
-                    Log.e("RegistraUsuario", "Error al enviar correo de verificación: ${task.exception?.message}")
                 }
             }
     }

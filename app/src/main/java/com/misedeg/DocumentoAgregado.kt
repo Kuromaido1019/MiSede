@@ -19,7 +19,6 @@ class DocumentoAgregado : AppCompatActivity() {
             insets
         }
 
-        // Boton volver a Panel Documentos
         val btnVolverGestionD: Button = findViewById(R.id.btnVolverGestionD)
         btnVolverGestionD.setOnClickListener {
             val intent = Intent(this, PanelDocumentos::class.java)

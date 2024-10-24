@@ -20,35 +20,30 @@ class PanelDocumentos : AppCompatActivity() {
             insets
         }
 
-        // Boton Ir a Inicio
         val btnIrInicio = findViewById<ImageView>(R.id.img_documentos)
         btnIrInicio.setOnClickListener {
             val intent = Intent(this, PanelAdministrador::class.java)
             startActivity(intent)
         }
 
-        // Boton agrega Documento
         val btnAgregarDocumento: Button = findViewById(R.id.btnAgregarDocumento)
         btnAgregarDocumento.setOnClickListener {
             val intent = Intent(this, AgregarDocumento::class.java)
             startActivity(intent)
         }
 
-        // Boton Editar Documento
         val btnEditarDocumento: Button = findViewById(R.id.btnEditarDocumento)
         btnEditarDocumento.setOnClickListener {
             val intent = Intent(this, EditarDocumento::class.java)
             startActivity(intent)
         }
 
-        // Boton Remover Documento
         val btnRemoverDocumento: Button = findViewById(R.id.btnRemoverDocumento)
         btnRemoverDocumento.setOnClickListener {
             val intent = Intent(this, RemoverDocumento::class.java)
             startActivity(intent)
         }
 
-        // Boton Listado Documentos
         val btnVisibilidadDocumentos: Button = findViewById(R.id.btnVisibilidadDocumento)
         btnVisibilidadDocumentos.setOnClickListener {
             val intent = Intent(this, VerDocumentos::class.java)

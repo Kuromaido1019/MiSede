@@ -24,9 +24,7 @@ class DocumentAdapter(private val documentList: List<Pair<String, String>>) :
         val (title, link) = documentList[position]
         holder.titleTextView.text = title
 
-        // Manejar el clic en el título del documento
         holder.itemView.setOnClickListener {
-            // Abrir el enlace en un navegador o en un WebView
             val context = holder.itemView.context
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(link)

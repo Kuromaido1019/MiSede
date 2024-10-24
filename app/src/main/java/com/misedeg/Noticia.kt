@@ -6,5 +6,5 @@ data class Noticia(
     val date: String = "",
     val description: String = "",
     var link: String = "",
-    var id: String? = null // Cambia esto a var para hacerlo mutable
+    var id: String? = null
 )

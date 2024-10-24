@@ -20,42 +20,36 @@ class PanelUsuarios : AppCompatActivity() {
             insets
         }
 
-        // Boton Ir a Inicio
         val btnIrInicio = findViewById<ImageView>(R.id.img_usuarios)
         btnIrInicio.setOnClickListener {
             val intent = Intent(this, PanelAdministrador::class.java)
             startActivity(intent)
         }
 
-        // Boton Agregar Usuarios
         val btnAgregarUsuario = findViewById<Button>(R.id.btnAgregarUsuario)
         btnAgregarUsuario.setOnClickListener {
             val intent = Intent(this, AgregarUsuario::class.java)
             startActivity(intent)
         }
 
-        // Boton Permisos Usuario
         val btnPermisosUsuario = findViewById<Button>(R.id.btnPermisosUsuario)
         btnPermisosUsuario.setOnClickListener {
             val intent = Intent(this, PermisosUsuario::class.java)
             startActivity(intent)
         }
 
-        // Boton Remover Usuarios
         val btnRemoverUsuario = findViewById<Button>(R.id.btnRemoverUsuario)
         btnRemoverUsuario.setOnClickListener {
             val intent = Intent(this, RemoverUsuario::class.java)
             startActivity(intent)
         }
 
-        // Boton Activar Usuario
         val btnActivarUsuario = findViewById<Button>(R.id.btnIrActivar)
         btnActivarUsuario.setOnClickListener {
             val intent = Intent(this, ActivarUsuario::class.java)
             startActivity(intent)
         }
 
-        // Boton Ver Datos Usuario
         val btnVerDatosUsuario = findViewById<Button>(R.id.btnVerDatosUsuario)
         btnVerDatosUsuario.setOnClickListener {
             val intent = Intent(this, VerDatosUsuario::class.java)

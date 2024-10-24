@@ -14,19 +14,17 @@ class AvisoActualizado : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_aviso_actualizado)
 
-        // Ajustar insets para la UI
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Configurar el botón para volver al panel de avisos
         val btnVolver = findViewById<Button>(R.id.btnVolverAvisosE)
         btnVolver.setOnClickListener {
             val intent = Intent(this, PanelAvisos::class.java)
             startActivity(intent)
-            finish() // Finalizar esta actividad para evitar que el usuario regrese a ella al presionar "Atrás"
+            finish()
         }
     }
 }

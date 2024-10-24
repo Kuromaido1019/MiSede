@@ -21,17 +21,14 @@ class RecuperarCuenta : AppCompatActivity() {
         binding = ActivityRecuperarCuentaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Ajustar el padding para los insets de la ventana
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Inicializar FirebaseAuth
         auth = FirebaseAuth.getInstance()
 
-        // Configurar el listener para el botón de recuperación de contraseña
         binding.btnRecuperar.setOnClickListener {
             val email = binding.txtEmailRecuperar.text.toString().trim()
 
@@ -47,12 +44,10 @@ class RecuperarCuenta : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Enviar correo de recuperación de contraseña
             auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Correo de recuperación enviado", Toast.LENGTH_LONG).show()
-                        // Redirigir a la actividad de Login
                         val intent = Intent(this, Login::class.java)
                         startActivity(intent)
                         finish()

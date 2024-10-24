@@ -20,41 +20,34 @@ class PanelAvisos : AppCompatActivity() {
             insets
         }
 
-        // Boton Ir a Inicio
         val btnIrInicio = findViewById<ImageView>(R.id.img_avisos)
         btnIrInicio.setOnClickListener {
             val intent = Intent(this, PanelAdministrador::class.java)
             startActivity(intent)
         }
 
-        // Boton Agregar Aviso
         val btnAgregarAviso = findViewById<Button>(R.id.btnAgregarAviso)
         btnAgregarAviso.setOnClickListener {
             val intent = Intent(this, AgregarAviso::class.java)
             startActivity(intent)
         }
 
-        // Boton Editar Aviso
         val btnEditarAviso = findViewById<Button>(R.id.btnEditarAviso)
         btnEditarAviso.setOnClickListener {
             val intent = Intent(this, EditarAviso::class.java)
             startActivity(intent)
         }
 
-        // Boton Visibilidad Aviso
         val btnVisibilidadAviso = findViewById<Button>(R.id.btnMostrarAvisos)
         btnVisibilidadAviso.setOnClickListener {
             val intent = Intent(this, MostrarAvisos::class.java)
             startActivity(intent)
         }
 
-        // Boton Remover Aviso
         val btnRemoverAviso = findViewById<Button>(R.id.btnRemoverAviso)
         btnRemoverAviso.setOnClickListener {
             val intent = Intent(this, RemoverAviso::class.java)
             startActivity(intent)
         }
-
-
     }
 }

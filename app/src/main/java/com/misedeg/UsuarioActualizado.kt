@@ -19,7 +19,6 @@ class UsuarioActualizado : AppCompatActivity() {
             insets
         }
 
-        // Volver al Panel Usuarios
         val btnVolverPanelUsuarios: Button = findViewById(R.id.btnVolverGestionU2)
         btnVolverPanelUsuarios.setOnClickListener {
             val intent = Intent(this, PanelUsuarios::class.java)

@@ -3,7 +3,6 @@ package com.misedeg
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,12 +20,10 @@ class MostrarAvisos : AppCompatActivity(), NoticeClickListener {
         binding = ActivityListadoAvisosGeneralesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.txtTituloListado.text = "Todos los Avisos" // Texto genérico ya que estamos mostrando todos
+        binding.txtTituloListado.text = "Todos los Avisos"
 
-        // Cargar todas las noticias
         populateNotices()
 
-        // Configurar el RecyclerView con GridLayoutManager
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(applicationContext, 2)
             adapter = CardAdapter(noticiaList, this@MostrarAvisos, this@MostrarAvisos)
@@ -34,31 +31,27 @@ class MostrarAvisos : AppCompatActivity(), NoticeClickListener {
     }
 
     override fun onClick(noticia: Noticia) {
-        Log.d("CardAdapter", "Clicked on notice: ${noticia.title} with ID: ${noticia.id}")
         val intent = Intent(this, DetalleListadoGeneral::class.java)
-        intent.putExtra(NOTICIE_ID_EXTRA, noticia.id) // Pasar el ID como String
+        intent.putExtra(NOTICIE_ID_EXTRA, noticia.id)
         startActivity(intent)
     }
 
-    // Cambiar este método para que cargue todos los avisos sin filtro
     @SuppressLint("NotifyDataSetChanged")
     private fun populateNotices() {
         db.collection("noticias")
-            .get() // Obtener todos los documentos de la colección
+            .get()
             .addOnSuccessListener { result ->
-                noticiaList.clear() // Limpiar la lista antes de agregar nuevos elementos
+                noticiaList.clear()
                 for (document in result) {
                     val noticia = document.toObject(Noticia::class.java)
-                    val documentId = document.id // Obtener el ID del documento
-                    Log.d("MostrarAvisos", "Loaded notice with ID: $documentId") // Imprimir el ID
-                    noticia.id = documentId // Asignar el ID al objeto Noticia
-                    noticiaList.add(noticia) // Agregar la noticia a la lista
+                    val documentId = document.id
+                    noticia.id = documentId
+                    noticiaList.add(noticia)
                 }
-                // Notificar al adaptador que los datos han cambiado
                 binding.recyclerView.adapter?.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->
-                e.printStackTrace() // Manejar el error si ocurre
+                e.printStackTrace()
             }
     }
 }

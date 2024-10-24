@@ -12,7 +12,7 @@ class RemoverUsuario : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     private lateinit var spinnerCorreoUsuario: Spinner
     private lateinit var btnRemoveUsuario: Button
-    private var emailList: ArrayList<String> = ArrayList() // Lista para almacenar los correos
+    private var emailList: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +23,10 @@ class RemoverUsuario : AppCompatActivity() {
         spinnerCorreoUsuario = findViewById(R.id.spnCorreoUsuario)
         btnRemoveUsuario = findViewById(R.id.btnRemoveUsuario)
 
-        // Cargar correos electrónicos en el Spinner
         cargarEmailsEnSpinner()
 
         btnRemoveUsuario.setOnClickListener {
-            val correo = spinnerCorreoUsuario.selectedItem.toString() // Obtener el correo seleccionado
+            val correo = spinnerCorreoUsuario.selectedItem.toString()
 
             if (correo.isNotEmpty()) {
                 markUserAsInactive(correo)
@@ -38,7 +37,6 @@ class RemoverUsuario : AppCompatActivity() {
     }
 
     private fun cargarEmailsEnSpinner() {
-        // Consultar Firestore para obtener los emails de todos los usuarios
         db.collection("usuarios")
             .get()
             .addOnSuccessListener { documents ->
@@ -46,11 +44,10 @@ class RemoverUsuario : AppCompatActivity() {
                     for (document in documents) {
                         val email = document.getString("email")
                         email?.let {
-                            emailList.add(it) // Añadir cada email a la lista
+                            emailList.add(it)
                         }
                     }
 
-                    // Crear un adaptador para el Spinner
                     val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, emailList)
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     spinnerCorreoUsuario.adapter = adapter
@@ -64,24 +61,21 @@ class RemoverUsuario : AppCompatActivity() {
     }
 
     private fun markUserAsInactive(correo: String) {
-        // Buscar al usuario en la colección de usuarios en Firestore
         db.collection("usuarios").whereEqualTo("email", correo).get()
             .addOnSuccessListener { documents ->
                 if (!documents.isEmpty) {
                     val documentId = documents.documents[0].id
-                    val userId = documents.documents[0].getString("UID") // Obtener el UID del documento
+                    val userId = documents.documents[0].getString("UID")
 
                     if (userId != null) {
-                        // Actualizar el estado del usuario a "Inactivo" en Firestore
                         db.collection("usuarios").document(documentId)
                             .update("estado", "Inactivo")
                             .addOnSuccessListener {
                                 Toast.makeText(this, "Usuario marcado como inactivo en Firestore.", Toast.LENGTH_SHORT).show()
 
-                                // Redirigir a la actividad UsuarioActualizado
                                 val intent = Intent(this, UsuarioActualizado::class.java)
                                 startActivity(intent)
-                                finish() // Opcional: cerrar la actividad actual
+                                finish()
                             }
                             .addOnFailureListener {
                                 Toast.makeText(this, "Error al marcar usuario como inactivo en Firestore.", Toast.LENGTH_SHORT).show()
