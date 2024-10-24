@@ -13,7 +13,7 @@ android {
         applicationId = "com.misedeg"
         minSdk = 27
         targetSdk = 34
-        versionCode = 5
+        versionCode = 6
         versionName = "5.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
