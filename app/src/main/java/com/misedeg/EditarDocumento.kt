@@ -1,9 +1,7 @@
 package com.misedeg
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -16,20 +14,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 
 class EditarDocumento : AppCompatActivity() {
 
     private lateinit var spinnerDocumentos: Spinner
     private lateinit var txtNewTituloDoc: EditText
     private lateinit var txtNewEnlaceDoc: EditText
-    private lateinit var btnImagenDocUpdate: Button
     private lateinit var btnActualizarDocumento: Button
     private lateinit var spnTipoDocEdi: Spinner
 
-    private var imagenUri: Uri? = null
     private val db = FirebaseFirestore.getInstance()
-    private val storage = FirebaseStorage.getInstance()
     private var documentoId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,17 +34,11 @@ class EditarDocumento : AppCompatActivity() {
         spinnerDocumentos = findViewById(R.id.spinnerDocumentos)
         txtNewTituloDoc = findViewById(R.id.txtNewTituloDoc)
         txtNewEnlaceDoc = findViewById(R.id.txtNewEnlaceDoc)
-        btnImagenDocUpdate = findViewById(R.id.btnImagenDocUpdate)
         btnActualizarDocumento = findViewById(R.id.btnActualizarDocumento)
         spnTipoDocEdi = findViewById(R.id.spnTipoDocEdi)
 
         configurarSpinnerDocumentos()
         configurarSpinnerCategorias()
-
-
-        btnImagenDocUpdate.setOnClickListener {
-            seleccionarImagen()
-        }
 
         btnActualizarDocumento.setOnClickListener {
             actualizarDocumento()
@@ -73,23 +61,30 @@ class EditarDocumento : AppCompatActivity() {
             spinnerDocumentos.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                     documentoId = querySnapshot.documents[position].id
-                    cargarDatosDocumento(documentoId!!)
+                    cargarDatosDocumento(documentoId)
                 }
+
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
+        }.addOnFailureListener { e ->
+            Toast.makeText(this, "Error al cargar documentos: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun cargarDatosDocumento(id: String) {
-        db.collection("documentos").document(id).get().addOnSuccessListener { document ->
-            if (document != null) {
-                txtNewTituloDoc.setText(document.getString("title"))
-                txtNewEnlaceDoc.setText(document.getString("link"))
-                val tipoDoc = document.getString("type")
-                val posicionTipo = obtenerPosicionTipo(tipoDoc)
-                spnTipoDocEdi.setSelection(posicionTipo)
-            } else {
-                Toast.makeText(this, "Documento no encontrado", Toast.LENGTH_SHORT).show()
+    private fun cargarDatosDocumento(id: String?) {
+        id?.let {
+            db.collection("documentos").document(it).get().addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    txtNewTituloDoc.setText(document.getString("title"))
+                    txtNewEnlaceDoc.setText(document.getString("link"))
+                    val tipoDoc = document.getString("type")
+                    val posicionTipo = obtenerPosicionTipo(tipoDoc)
+                    spnTipoDocEdi.setSelection(posicionTipo)
+                } else {
+                    Toast.makeText(this, "Documento no encontrado", Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener { e ->
+                Toast.makeText(this, "Error al cargar el documento: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -110,21 +105,9 @@ class EditarDocumento : AppCompatActivity() {
         spnTipoDocEdi.adapter = adapter
     }
 
-    private fun seleccionarImagen() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, 100)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            imagenUri = data?.data
-        }
-    }
-
     private fun actualizarDocumento() {
-        val nuevoTitulo = txtNewTituloDoc.text.toString()
-        val nuevoEnlace = txtNewEnlaceDoc.text.toString()
+        val nuevoTitulo = txtNewTituloDoc.text.toString().trim()
+        val nuevoEnlace = txtNewEnlaceDoc.text.toString().trim()
         val nuevoTipo = spnTipoDocEdi.selectedItem.toString()
 
         if (nuevoTitulo.isEmpty() || nuevoEnlace.isEmpty() || documentoId == null) {
@@ -139,20 +122,8 @@ class EditarDocumento : AppCompatActivity() {
         )
 
         db.collection("documentos").document(documentoId!!).update(documentoActualizado as Map<String, Any>).addOnSuccessListener {
-            if (imagenUri != null) {
-                val refStorage = storage.reference.child("images/doc_$documentoId")
-                refStorage.putFile(imagenUri!!)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Documento actualizado", Toast.LENGTH_SHORT).show()
-                        finish()
-                    }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(this, "Error al actualizar la imagen: ${e.message}", Toast.LENGTH_SHORT).show()
-                    }
-            } else {
-                Toast.makeText(this, "Documento actualizado sin cambios en la imagen", Toast.LENGTH_SHORT).show()
-                finish() // O redirige a otra actividad
-            }
+            Toast.makeText(this, "Documento actualizado exitosamente", Toast.LENGTH_SHORT).show()
+            finish() // O redirige a otra actividad
         }.addOnFailureListener { e ->
             Toast.makeText(this, "Error al actualizar el documento: ${e.message}", Toast.LENGTH_SHORT).show()
         }

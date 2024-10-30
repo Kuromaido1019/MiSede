@@ -60,26 +60,24 @@ class AgregarDocumento : AppCompatActivity() {
             return
         }
 
-        db.collection("documentos").get().addOnSuccessListener { querySnapshot ->
-            val ultimoId = if (querySnapshot.isEmpty) 1 else querySnapshot.size() + 1  // Generar nuevo ID
+        val documento = mapOf(
+            "title" to titulo,
+            "link" to enlace,
+            "state" to "active",
+            "type" to categoria
+        )
 
-            val documento = mapOf(
-                "title" to titulo,
-                "link" to enlace,
-                "state" to "active",
-                "type" to categoria
-            )
-
-            db.collection("documentos").document(ultimoId.toString()).set(documento)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Documento agregado exitosamente.", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this, DocumentoAgregado::class.java)
-                    startActivity(intent)  // Redirigir a la actividad de éxito
-                    finish()
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error al agregar el documento: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-        }
+        // Usa el método 'add()' para agregar el documento con un ID automático
+        db.collection("documentos").add(documento)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Documento agregado exitosamente.", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, DocumentoAgregado::class.java)
+                startActivity(intent)  // Redirigir a la actividad de éxito
+                finish()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al agregar el documento: ${e.message}", Toast.LENGTH_LONG).show()
+            }
     }
+
 }

@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
 
 class RemoverDocumento : AppCompatActivity() {
 
@@ -47,6 +46,8 @@ class RemoverDocumento : AppCompatActivity() {
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, documentos)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerDocumentosRemover.adapter = adapter
+        }.addOnFailureListener { e ->
+            Toast.makeText(this, "Error al cargar documentos: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -69,19 +70,14 @@ class RemoverDocumento : AppCompatActivity() {
 
                 val documento = querySnapshot.documents.first()
                 val id = documento.id
-                val nombreImagen = documento.getString("cover") ?: ""
 
+                // Eliminar el documento sin referencias a la imagen
                 db.collection("documentos").document(id).delete()
                     .addOnSuccessListener {
-                        val storageRef = FirebaseStorage.getInstance().reference.child("images/$nombreImagen.png")
-                        storageRef.delete().addOnSuccessListener {
-                            Toast.makeText(this, "Documento eliminado exitosamente.", Toast.LENGTH_LONG).show()
-                            val intent = Intent(this, DocumentoRemovido::class.java)
-                            startActivity(intent)
-                            finish()
-                        }.addOnFailureListener { e ->
-                            Toast.makeText(this, "Error al eliminar la imagen: ${e.message}", Toast.LENGTH_LONG).show()
-                        }
+                        Toast.makeText(this, "Documento eliminado exitosamente.", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, DocumentoRemovido::class.java)
+                        startActivity(intent)
+                        finish()
                     }
                     .addOnFailureListener { e ->
                         Toast.makeText(this, "Error al eliminar el documento: ${e.message}", Toast.LENGTH_LONG).show()

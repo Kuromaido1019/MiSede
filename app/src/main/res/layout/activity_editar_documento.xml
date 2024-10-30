@@ -95,34 +95,18 @@
         app:layout_constraintTop_toBottomOf="@+id/txtNewTituloDoc" />
 
     <Button
-        android:id="@+id/btnImagenDocUpdate"
-        android:layout_width="148dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="131dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_background"
-        android:text="Subir imagen"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnTipoDocEdi" />
-
-    <Button
         android:id="@+id/btnActualizarDocumento"
         android:layout_width="347dp"
         android:layout_height="55dp"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="26dp"
         android:background="@drawable/button_background"
         android:text="Actualizar Documento"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnImagenDocUpdate" />
+        app:layout_constraintTop_toBottomOf="@+id/spnTipoDocEdi" />
 
     <TextView
         android:id="@+id/textView22"
