@@ -13,8 +13,8 @@ android {
         applicationId = "com.misedeg"
         minSdk = 27
         targetSdk = 34
-        versionCode = 7
-        versionName = "5.1"
+        versionCode = 10
+        versionName = "9.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -74,6 +74,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-database:20.2.0")
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-messaging-ktx")
 
     // Picasso
     implementation("com.squareup.picasso:picasso:2.8")
@@ -90,5 +91,8 @@ dependencies {
 
     // ViewPager2
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
+
+    // OneSignal
+    implementation ("com.onesignal:OneSignal:[5.0.0, 5.99.99]")
 
    }

@@ -21,9 +21,9 @@
         android:id="@+id/textView16"
         android:layout_width="272dp"
         android:layout_height="44dp"
-        android:layout_marginStart="9dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="38dp"
-        android:layout_marginEnd="27dp"
+        android:layout_marginEnd="25dp"
         android:text="Agregar Documento"
         android:textAlignment="center"
         android:textColor="@color/STomas"
@@ -45,7 +45,6 @@
         android:textColor="@color/STomas"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView13" />
 
@@ -63,7 +62,6 @@
         android:textAlignment="center"
         android:textColor="@color/STomas"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -80,40 +78,24 @@
         android:inputType="text"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTituloDocumento" />
-
-    <Button
-        android:id="@+id/btnImagenDocumento"
-        android:layout_width="117dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="147dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="147dp"
-        android:background="@drawable/button_background"
-        android:text="Imagen"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spnTipoDocAdd" />
 
     <Button
         android:id="@+id/btnAgregarDoc"
         android:layout_width="253dp"
         android:layout_height="57dp"
         android:layout_marginStart="79dp"
-        android:layout_marginTop="107dp"
+        android:layout_marginTop="81dp"
         android:layout_marginEnd="79dp"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="312dp"
         android:background="@drawable/button_background"
         android:text="Agregar documento"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnImagenDocumento" />
+        app:layout_constraintTop_toBottomOf="@+id/spnTipoDocAdd" />
 
     <Spinner
         android:id="@+id/spnTipoDocAdd"
